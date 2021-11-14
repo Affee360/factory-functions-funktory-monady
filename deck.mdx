@@ -236,6 +236,255 @@ newPiece.cut();
 
 ---
 
+<CodeSurferColumns theme={theme}>
+
+<Step>
+
+```js showNumbers
+class List {
+  items = []
+}
+```
+
+</Step>
+
+<Step>
+
+```js showNumbers
+class List {
+  items = []
+
+  addItem(item) {
+    this.items.push(item)
+  }
+}
+```
+
+</Step>
+
+<Step>
+
+```js showNumbers
+class List {
+  items = []
+
+  addItem(item) {
+    this.items.push(item)
+  }
+
+  getItems() {
+    return this.items;
+  }
+}
+```
+
+</Step>
+
+<Step>
+
+```js showNumbers
+class List {
+  items = []
+
+  addItem(item) {
+    this.items.push(item)
+  }
+
+  getItems() {
+    return this.items;
+  }
+}
+
+const numbers = new List()
+```
+
+</Step>
+
+<Step>
+
+```js showNumbers
+class List {
+  items = []
+
+  addItem(item) {
+    this.items.push(item)
+  }
+
+  getItems() {
+    return this.items;
+  }
+}
+
+const numbers = new List()
+numbers.addItem(1);
+numbers.addItem(2);
+numbers.getItems();
+```
+
+</Step>
+
+<Step>
+
+```js showNumbers
+class List {
+  items = []
+
+  addItem(item) {
+    this.items.push(item)
+  }
+
+  getItems() {
+    return this.items;
+  }
+}
+
+const numbers = new List()
+numbers.addItem(1);
+numbers.addItem(2);
+numbers.getItems();
+numbers.items;
+```
+
+</Step>
+
+<Step>
+
+```js showNumbers
+class List {
+  items = []
+
+  addItem(item) {
+    this.items.push(item)
+  }
+
+  getItems() {
+    return this.items;
+  }
+}
+
+const numbers = new List()
+numbers.addItem(1);
+numbers.addItem(2);
+numbers.getItems();
+numbers.items;
+
+const button = document.querySelector('button');
+button.addEventListener('click', numbers.getItems) // undefined
+button.addEventListener('click', numbers.getItems.bind(this)) // [1,2]
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+# Wady
+
+* Brak możliwości enkapsulacji
+* Problematyczne słowo kluczowe this
+
+---
+
+<CodeSurferColumns theme={theme}>
+
+<Step>
+
+```js showNumbers
+const list = () => {
+  const items = [];
+}
+```
+
+</Step>
+
+<Step>
+
+```js showNumbers
+const list = () => {
+  const items = [];
+
+  return { 
+    addItem: (item) => items.push(item),
+    getItems: () => items,
+  }
+}
+```
+
+</Step>
+
+<Step>
+
+```js showNumbers
+const list = () => {
+  const items = [];
+
+  return { 
+    addItem: (item) => items.push(item),
+    getItems: () => items,
+  }
+}
+
+const numbers = list();
+numbers.addItem(1);
+numbers.addItem(2);
+numbers.getItems(); // [1,2]
+number.items; // undefined
+```
+
+</Step>
+
+<Step>
+
+```js showNumbers
+const list = () => {
+  const items = [];
+
+  return { 
+    addItem: (item) => items.push(item),
+    getItems: () => items,
+  }
+}
+
+const numbers = list();
+numbers.addItem(1);
+numbers.addItem(2);
+numbers.getItems(); // [1,2]
+number.items; // undefined
+numbers.addItem = '';
+numbers.addItem(3) // numbers.addItem is not a function
+```
+
+</Step>
+
+<Step>
+
+```js showNumbers
+const list = () => {
+  const items = [];
+
+  return Object.freeze({ 
+    addItem: (item) => items.push(item),
+    getItems: () => items,
+  })
+}
+
+const numbers = list();
+numbers.addItem(1);
+numbers.addItem(2);
+numbers.getItems(); // [1,2]
+number.items; // undefined
+numbers.addItem = '';
+numbers.addItem(3)
+numbers.getItems() // [1,2,3]
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
 # Funktory
 
 <p style="text-align: center">
