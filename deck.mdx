@@ -418,3 +418,348 @@ newPiece.cut();
   src="http://localhost:8081/3.png"
   style="background-image: contain; background-size: 400px auto;"
 />
+
+---
+
+# Monady
+
+<p style="text-align: center">
+  monad jest funktorem ktory daje nam dodatkowe opcje, głownie flatMap
+</p>
+
+---
+
+<CodeSurferColumns theme={theme}>
+
+<Step>
+
+```js showNumbers
+  const double = (v) => v * 2;
+  ```
+
+</Step>
+
+<Step>
+
+```js showNumbers
+  const double = (v) => v * 2;
+  // 5 -> 10
+  ```
+
+</Step>
+
+<Step>
+
+```js showNumbers 
+  const functor = (v) => ({
+    map: (fn) => functor(fn(v)),
+    valueOf: () => v,
+    inspect: () => `functor(${v})`,
+  });
+  ```
+
+</Step>
+
+<Step>
+
+```js showNumbers 
+  const functor = (v) => ({
+    map: (fn) => functor(fn(v)),
+    valueOf: () => v,
+    inspect: () => `functor(${v})`,
+  });
+
+  functor(5).map(double);
+  ```
+
+</Step>
+
+<Step>
+
+```js showNumbers 
+  const functor = (v) => ({
+    map: (fn) => functor(fn(v)),
+    valueOf: () => v,
+    inspect: () => `functor(${v})`,
+  });
+
+  functor(5).map(double);
+  // functor(5) -> functor(10)
+  ```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+# Object in context
+
+* Array(a)
+* Observable(b)
+* Promise(c)
+
+--- 
+
+<CodeSurferColumns theme={theme}>
+
+<Step>
+
+```js title="Przykłady monadów" showNumbers 
+  [1, 2, 3, 4].flatMap((v) => [v * 2])
+  ```
+
+</Step>
+
+<Step>
+
+```js title="Przykłady monadów" showNumbers 
+  [1, 2, 3, 4].flatMap((v) => [v * 2])
+
+  const promise = new Promise((res) => setTimeout(() => res("done"), 500));
+  ```
+
+</Step>
+
+<Step>
+
+```js title="Przykłady monadów" showNumbers 
+  [1, 2, 3, 4].flatMap((v) => [v * 2])
+
+  const promise = new Promise((res) => setTimeout(() => res("done"), 500));
+  promise.then((data) => console.log(data));
+  ```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+<h1 style="text-align: center">Jak w rzeczywistości działa promise</h1>
+
+<CodeSurfer>
+
+```js showNumbers
+const promise = new Promise((res) => setTimeout(() => res("done"), 500));
+promise.then((data) => console.log(data))
+```
+
+</CodeSurfer>
+
+<p style="text-align: center">Promise(Promise('done')) w calbacku tych funkcji mamy dostęp do wartości</p>
+
+---
+
+<CodeSurfer>
+
+```js showNumbers
+const promise2 = promise.then((data) => data).then((data) => console.log(data));
+console.log("this is promise", Object.prototype.toString.call(promise2));
+```
+
+</CodeSurfer>
+
+<Image
+  src="http://localhost:8081/4.png"
+  style="background-image: contain; background-size: 400px auto;"
+/>
+
+<p style="text-align: center">Promise(Promise('done')) -> Promise('done') = flat map</p>
+
+---
+
+# Przykład własnego monada
+
+<p style="text-align: center">Funkcja do przeliczania z stopnie fahrenheita na celsjusza</p>
+
+---
+
+<CodeSurferColumns theme={theme}>
+
+<Step>
+
+```js showNumbers
+const fahrenheitToCelcius = (a) => (a - 32) * 0.5556;
+```
+
+</Step>
+
+<Step>
+
+```js showNumbers
+const fahrenheitToCelcius = (a) => (a - 32) * 0.5556;
+
+const value1 = 15;
+const value2 = null;
+```
+
+</Step>
+
+<Step>
+
+```js showNumbers
+const fahrenheitToCelcius = (a) => (a - 32) * 0.5556;
+
+const value1 = 15;
+const value2 = null;
+
+console.log("good", fahrenheitToCelcius(value1));
+console.log("bad", fahrenheitToCelcius(value2));
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+# Powstaje pewnien problem
+
+<Image
+  src="http://localhost:8081/5.png"
+  style="background-image: contain; background-size: 400px auto;"
+/>
+
+<p style="text-align: center">Wszystko dlatego że null jest zamieniany na 0</p>
+<p style="text-align: center">Potrzebujemy czegoś co zatrzyma kompozycje jeśli wartość jest nullem</p>
+
+---
+
+<CodeSurferColumns theme={theme}>
+
+<Step>
+
+```js showNumbers
+const just = (v) => ({
+  map: (fn) => just(fn(v)),
+  flatMap: (fn) => fn(x),
+  valueOf: () => v,
+  inspect: () => `just(${v})`,
+  type: "just",
+});
+```
+
+</Step>
+
+<Step>
+
+```js showNumbers
+const just = (v) => ({
+  map: (fn) => just(fn(v)),
+  flatMap: (fn) => fn(x),
+  valueOf: () => v,
+  inspect: () => `just(${v})`,
+  type: "just",
+});
+
+const nothing = () => ({
+  map: (fn) => nothing(fn()),
+  flatMap: (fn) => fn(),
+  valueOf: () => nothing(),
+  inspect: () => `nothing()`,
+  type: "nothing",
+});
+```
+
+</Step>
+
+<Step>
+
+```js showNumbers
+const just = (v) => ({
+  map: (fn) => just(fn(v)),
+  flatMap: (fn) => fn(x),
+  valueOf: () => v,
+  inspect: () => `just(${v})`,
+  type: "just",
+});
+
+const nothing = () => ({
+  map: (fn) => nothing(fn()),
+  flatMap: (fn) => fn(),
+  valueOf: () => nothing(),
+  inspect: () => `nothing()`,
+  type: "nothing",
+});
+
+const maybeOf = (x) => (!x || x.type === "nothing" ? nothing() : just(x));
+```
+
+</Step>
+
+<Step>
+
+```js showNumbers
+const just = (v) => ({
+  map: (fn) => just(fn(v)),
+  flatMap: (fn) => fn(x),
+  valueOf: () => v,
+  inspect: () => `just(${v})`,
+  type: "just",
+});
+
+const nothing = () => ({
+  map: (fn) => nothing(fn()),
+  flatMap: (fn) => fn(),
+  valueOf: () => nothing(),
+  inspect: () => `nothing()`,
+  type: "nothing",
+});
+
+const maybeOf = (x) => (!x || x.type === "nothing" ? nothing() : just(x));
+
+const maybe = {
+  of: maybeOf,
+};
+```
+
+</Step>
+
+<Step>
+
+```js showNumbers
+const just = (v) => ({
+  map: (fn) => just(fn(v)),
+  flatMap: (fn) => fn(x),
+  valueOf: () => v,
+  inspect: () => `just(${v})`,
+  type: "just",
+});
+
+const nothing = () => ({
+  map: (fn) => nothing(fn()),
+  flatMap: (fn) => fn(),
+  valueOf: () => nothing(),
+  inspect: () => `nothing()`,
+  type: "nothing",
+});
+
+const maybeOf = (x) => (!x || x.type === "nothing" ? nothing() : just(x));
+
+const maybe = {
+  of: maybeOf,
+};
+
+const temp1 = maybe.of(value1).map(fahrenheitToCelcius).inspect();
+const temp2 = maybe.of(value2).map(fahrenheitToCelcius).map(double).inspect();
+console.log(temp1);
+console.log(temp2);
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+# Teraz oba wyniki są poprawne
+
+<Image
+  src="http://localhost:8081/6.png"
+  style="background-image: contain; background-size: 400px auto;"
+/>
+
+---
+
+# Pytania ?
