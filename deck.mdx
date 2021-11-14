@@ -3,143 +3,146 @@ import {
   CodeSurferColumns,
   Step,
 } from "code-surfer";
-import { github, vsDark } from "@code-surfer/themes";
+import {
+  github,
+  vsDark,
+  nightOwl,
+} from "@code-surfer/themes";
+import { Image } from "mdx-deck";
 
-export const theme = vsDark;
+export const theme = nightOwl;
 
-# Hello 👋
+# Cześć 👋
 
-You are using [MDX Deck](https://github.com/jxnblk/mdx-deck) and [Code Surfer](https://codesurfer.pomb.us)
-
----
-
-<CodeSurfer>
-
-```js title="This is a title" subtitle="and this a subtitle"
-function lorem(ipsum, dolor = 1) {
-  const sit = ipsum == null ? 0 : ipsum.sit;
-  dolor = sit - amet(dolor);
-  return sit
-    ? consectetur(ipsum, 0, dolor < 0 ? 0 : dolor)
-    : [];
-}
-
-function incididunt(ipsum, ut = 1) {
-  ut = labore.et(amet(ut), 0);
-  const sit = ipsum == null ? 0 : ipsum.sit;
-
-  if (!sit || ut < 1) {
-    return [];
-  }
-
-  let dolore = 0;
-  let magna = 0;
-  const aliqua = new eiusmod(labore.ut(sit / ut));
-
-  while (dolore < sit) {
-    aliqua[magna++] = consectetur(
-      ipsum,
-      dolore,
-      (dolore += ut)
-    );
-  }
-
-  return aliqua;
-}
-```
-
-```js
-function lorem(ipsum, dolor = 1) {
-  const sit = ipsum == null ? 0 : ipsum.sit;
-  dolor = sit - amet(dolor);
-  return sit
-    ? consectetur(ipsum, 0, dolor < 0 ? 0 : dolor)
-    : [];
-}
-
-function adipiscing(...elit) {
-  if (!elit.sit) {
-    return [];
-  }
-
-  const sed = elit[0];
-  return eiusmod.tempor(sed) ? sed : [sed];
-}
-
-function incididunt(ipsum, ut = 1) {
-  ut = labore.et(amet(ut), 0);
-  const sit = ipsum == null ? 0 : ipsum.sit;
-
-  if (!sit || ut < 1) {
-    return [];
-  }
-
-  let dolore = 0;
-  let magna = 0;
-  const aliqua = new eiusmod(labore.ut(sit / ut));
-
-  while (dolore < sit) {
-    aliqua[magna++] = consectetur(
-      ipsum,
-      dolore,
-      (dolore += ut)
-    );
-  }
-
-  return aliqua;
-}
-```
-
-```diff 1[10:14],2[15:19],3[22:27],10:12
-
-```
-
-</CodeSurfer>
+<p style="text-align: center">
+  Programowanie funkcyjne w JavaScript, czyli czym są
+  Factory Functions, funktory i monady.
+</p>
 
 ---
 
-<CodeSurferColumns themes={[vsDark, github]}>
+<CodeSurferColumns theme={theme}>
 
 <Step>
 
-```js
-const magna = aliqua => aliqua.ut((enim, ad) => enim, 0);
-```
-
-```js
-const minim = (ad, enim) => dolore.magna(ad / enim);
+```js showNumbers
+class PieceOfCake {
+  bake() {}
+  decorate() {}
+  cut() {}
+}
 ```
 
 </Step>
 
 <Step>
 
-```js
-const lorem = (ipsum, dolor, sit) => {
-  const amet = dolor - ipsum;
-  return consectetur.adipiscing(
-    {
-      elit: sed.eiusmod(sit - dolor) / amet + 2,
-    },
-    (tempor, incididunt) => ipsum + amet * incididunt
-  );
-};
+```js showNumbers
+class PieceOfCake {
+  bake() {}
+  decorate() {}
+  cut() {}
+}
 
-const magna = aliqua => aliqua.ut((enim, ad) => enim, 0);
+class Muffin {
+  bake() {}
+  decorate() {}
+}
 ```
 
-```js
-const minim = (ad, enim) => dolore.magna(ad / enim);
+</Step>
 
-const sed = (eiusmod, tempor, incididunt) => {
-  const ut = tempor - eiusmod;
-  return labore.et(
-    {
-      amet: dolore.magna(incididunt - tempor) / ut + 2,
-    },
-    (aliqua, elit) => eiusmod + ut * elit
-  );
-};
+<Step>
+
+```js title="Przydało by się uzyć DRY" showNumbers 1:10
+class PieceOfCake {
+  bake() {}
+  decorate() {}
+  cut() {}
+}
+
+class Muffin {
+  bake() {}
+  decorate() {}
+}
+```
+
+</Step>
+
+<Step>
+
+```js showNumbers 1:4
+class Baking {
+  bake() {}
+  decorate() {}
+}
+```
+
+</Step>
+
+<Step>
+
+```js title="inheritance" showNumbers
+class Baking {
+  bake() {}
+  decorate() {}
+}
+
+class PieceOfCake extends Baking {
+  cut() {}
+}
+
+class Muffin extends Baking {
+  heatUp() {}
+}
+```
+
+</Step>
+
+<Step>
+
+```js showNumbers
+class Baking {
+  bake() {}
+  decorate() {}
+}
+
+class PieceOfCake extends Baking {
+  cut() {}
+}
+
+class Muffin extends Baking {
+  heatUp() {}
+}
+
+class Salad {
+  mixed() {}
+  decorate() {}
+}
+```
+
+</Step>
+
+<Step>
+
+```js title="The Duplication by Necessity Problem" showNumbers 1:17
+class Baking {
+  bake() {}
+  decorate() {}
+}
+
+class PieceOfCake extends Baking {
+  cut() {}
+}
+
+class Muffin extends Baking {
+  heatUp() {}
+}
+
+class Salad {
+  mixed() {}
+  decorate() {}
+}
 ```
 
 </Step>
@@ -148,5 +151,276 @@ const sed = (eiusmod, tempor, incididunt) => {
 
 ---
 
-docs:  
-[codesurfer.pomb.us](https://codesurfer.pomb.us)
+<CodeSurferColumns theme={theme}>
+
+<Step>
+
+```js title="Composition" showNumbers
+const bakeble = (state) => ({
+  bake: () => console.log(`baking new ${state.type}`),
+});
+
+const decorable = (state) => ({
+  decorate: () =>
+    console.log(`decorating new ${state.name}`),
+});
+
+const cutable = (state) => ({
+  cut: () => console.log(`cuting new ${state.name}`),
+});
+```
+
+</Step>
+
+<Step>
+
+```js title="Factory Function" showNumbers
+const bakeble = (state) => ({
+  bake: () => console.log(`baking new ${state.type}`),
+});
+
+const decorable = (state) => ({
+  decorate: () =>
+    console.log(`decorating new ${state.name}`),
+});
+
+const cutable = (state) => ({
+  cut: () => console.log(`cuting new ${state.name}`),
+});
+
+const pieceOfCake = (name, type) => {
+  const state = { name, type };
+
+  return Object.assign(
+    {},
+    bakeble(state),
+    decorable(state),
+    cutable(state)
+  );
+};
+```
+
+</Step>
+
+<Step>
+
+```js title="Factory Function" showNumbers
+const bakeble = (state) => ({
+  bake: () => console.log(`baking new ${state.type}`),
+});
+
+const decorable = (state) => ({
+  decorate: () => console.log(`decorating new ${state.name}`),
+});
+
+const cutable = (state) => ({
+  cut: () => console.log(`cuting new ${state.name}`),
+});
+
+const pieceOfCake = (name, type) => {
+  const state = { name, type}
+
+  return Object.assign({}, bakeble(state), decorable(state), cutable(state));
+}
+
+const newPiece = pieceOfCake('chocolate cake' 'cake');
+newPiece.bake();
+newPiece.decorate();
+newPiece.cut();
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+<Image
+  src="http://localhost:8081/1.png"
+  style="background-image: contain; background-size: 400px auto;"
+/>
+
+---
+
+# Funktory
+
+<p style="text-align: center">
+  kontener dajacy interface umozliwiajacy wykonanie funkcji
+  dla kazdej wartosci wewnatrz niego
+</p>
+
+---
+
+<CodeSurferColumns theme={theme}>
+
+<Step>
+
+  ```js title="functor" showNumbers
+  const array = [1,2,3,4];
+  ```
+
+</Step>
+
+<Step>
+
+  ```js title="functor" showNumbers
+  const array = [1,2,3,4];
+  const addOne = (value) => value + 1;
+  ```
+
+</Step>
+
+<Step>
+
+  ```js title="functor" showNumbers
+  const array = [1,2,3,4];
+  const addOne = (value) => value + 1;
+  const arrayMap= array.map(addOne);
+  ```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+# #1 Indentity
+
+---
+
+<CodeSurfer theme={theme}>
+
+```js showNumbers
+  const sameArray = array.map((v) => v);
+  ```
+
+</CodeSurfer>
+
+---
+
+# #2 Composition
+
+---
+
+<CodeSurferColumns theme={theme}>
+
+<Step>
+
+```js showNumbers
+  const double = (value) => value * 2;
+  const triple = (value) => value * 3;
+  ```
+
+</Step>
+
+<Step>
+
+ ```js showNumbers
+  const double = (value) => value * 2;
+  const triple = (value) => value * 3;
+
+  const composition = array.map((v) => triple(double(v)));
+  ```
+
+</Step>
+
+<Step>
+
+ ```js showNumbers
+  const double = (value) => value * 2;
+  const triple = (value) => value * 3;
+
+  const composition = array.map((v) => triple(double(v)));
+  const chaining = array.map((v) => double(v)).map((v) => triple(v));
+  ```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+<Image
+  src="http://localhost:8081/2.png"
+  style="background-image: contain; background-size: 400px auto;"
+/>
+
+---
+
+# Jak stworzyć functor
+
+---
+
+<CodeSurferColumns theme={theme}>
+
+<Step>
+
+```js showNumbers
+  const double = (value) => value * 2;
+  const triple = (value) => value * 3;
+  ```
+
+</Step>
+
+<Step>
+
+```js showNumbers
+  const double = (value) => value * 2;
+  const triple = (value) => value * 3;
+
+  const functor = (v) => ({})
+  ```
+
+</Step>
+
+<Step>
+
+```js showNumbers
+  const double = (value) => value * 2;
+  const triple = (value) => value * 3;
+
+  const functor = (v) => ({
+    map: (fn) => functor(fn(v)),
+  })
+  ```
+
+</Step>
+
+<Step>
+
+```js showNumbers
+  const double = (value) => value * 2;
+  const triple = (value) => value * 3;
+
+  const functor = (v) => ({
+    map: (fn) => functor(fn(v)),
+    valueOf: () => v,
+  })
+  ```
+
+</Step>
+
+<Step>
+
+```js showNumbers
+  const double = (value) => value * 2;
+  const triple = (value) => value * 3;
+
+  const functor = (v) => ({
+    map: (fn) => functor(fn(v)),
+    valueOf: () => v,
+  })
+
+  const number = functor(2);
+  ```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+<Image
+  src="http://localhost:8081/3.png"
+  style="background-image: contain; background-size: 400px auto;"
+/>
