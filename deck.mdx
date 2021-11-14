@@ -54,7 +54,7 @@ class Muffin {
 
 <Step>
 
-```js title="Przydało by się uzyć DRY" showNumbers 1:10
+```js title="Przydało by się uzyć DRY" showNumbers 1:11
 class PieceOfCake {
   bake() {}
   decorate() {}
@@ -64,6 +64,7 @@ class PieceOfCake {
 class Muffin {
   bake() {}
   decorate() {}
+  heatUp() {}
 }
 ```
 
@@ -161,8 +162,7 @@ const bakeble = (state) => ({
 });
 
 const decorable = (state) => ({
-  decorate: () =>
-    console.log(`decorating new ${state.name}`),
+  decorate: () => console.log(`decorating new ${state.name}`),
 });
 
 const cutable = (state) => ({
@@ -180,8 +180,7 @@ const bakeble = (state) => ({
 });
 
 const decorable = (state) => ({
-  decorate: () =>
-    console.log(`decorating new ${state.name}`),
+  decorate: () => console.log(`decorating new ${state.name}`),
 });
 
 const cutable = (state) => ({
@@ -191,12 +190,7 @@ const cutable = (state) => ({
 const pieceOfCake = (name, type) => {
   const state = { name, type };
 
-  return Object.assign(
-    {},
-    bakeble(state),
-    decorable(state),
-    cutable(state)
-  );
+  return Object.assign({}, bakeble(state), decorable(state), cutable(state));
 };
 ```
 
@@ -218,10 +212,10 @@ const cutable = (state) => ({
 });
 
 const pieceOfCake = (name, type) => {
-  const state = { name, type}
+  const state = { name, type };
 
   return Object.assign({}, bakeble(state), decorable(state), cutable(state));
-}
+};
 
 const newPiece = pieceOfCake('chocolate cake' 'cake');
 newPiece.bake();
