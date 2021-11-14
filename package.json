@@ -1,5 +1,5 @@
 {
-  "private": true,
+  "private": false,
   "version": "1.0.0",
   "scripts": {
     "static": "cd images && npx http-server -p 8081",
@@ -13,5 +13,6 @@
     "concurrently": "^6.4.0",
     "mdx-deck": "3.0.13"
   },
-  "name": "my-deck"
+  "author": "Ernest",
+  "name": "factory_functor_monad"
 }
