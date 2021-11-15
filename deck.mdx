@@ -8,9 +8,14 @@ import {
   vsDark,
   nightOwl,
 } from "@code-surfer/themes";
-import { Image } from "mdx-deck";
+import { Image, Head } from "mdx-deck";
 
 export const theme = nightOwl;
+
+<Head>
+  <title>Factory Functions, functor, monad</title>
+  <link rel="icon" type="image/x-icon" href="http://localhost:8081/favicon.ico" />
+</Head>
 
 # Cześć 👋
 
@@ -55,7 +60,7 @@ class Muffin {
 
 <Step>
 
-```js title="Przydało by się uzyć DRY" showNumbers 1:11
+```js title="Przydało by się użyć zasady Don't Repeat Yourself" showNumbers 1:11
 class PieceOfCake {
   bake() {}
   decorate() {}
@@ -153,8 +158,6 @@ class Salad {
 
 ---
 
----
-
 # Factory Function
 
 <p style="text-align: center">Factory function to dowolna funkcja, która nie jest klasą ani konstruktorem, która zwraca (prawdopodobnie nowy) obiekt</p>
@@ -208,7 +211,7 @@ const pieceOfCake = (name, type) => {
 <Step>
 
 ```js title="Factory Function" showNumbers
-const bakeble = (state) => ({
+const bakable = (state) => ({
   bake: () => console.log(`baking new ${state.type}`),
 });
 
@@ -223,7 +226,7 @@ const cutable = (state) => ({
 const pieceOfCake = (name, type) => {
   const state = { name, type };
 
-  return Object.assign({}, bakeble(state), decorable(state), cutable(state));
+  return Object.assign({}, bakable(state), decorable(state), cutable(state));
 };
 
 const newPiece = pieceOfCake('chocolate cake' 'cake');
@@ -494,6 +497,35 @@ numbers.getItems() // [1,2,3]
 
 ---
 
+# Czym jest map ?
+
+<p style="text-align: center">W wielu językach programowania map jest nazwą funkcji wyższego rzędu, która stosuje daną funkcję do każdego elementu funktora</p>
+
+* 5 -> 10
+* [10] -> [20]
+* {a: 20} -> {a: 40}
+
+---
+
+
+# Czym jest flatMap ?
+
+<p style="text-align: center">Jest tym samym co map, z dodatkową możliwością spłaszczania</p>
+
+* [[5], [5]] -> [10, 10]
+* {a: {b: 5} -> {'a.b': 5}
+
+
+---
+
+# Object in context
+
+* Array(a)
+* Observable(b)
+* Promise(c)
+
+--- 
+
 # Funktory
 
 <p style="text-align: center">
@@ -698,29 +730,12 @@ numbers.getItems() // [1,2,3]
 # Monada
 
 <p style="text-align: center">
-  Sposób komponowania funkcji, które oprócz wartości zwracanej wymagają kontekstu
+  Sposób komponowania funkcji, który oprócz wartości zwracanej wymagają kontekstu
 </p>
 
 ---
 
 <CodeSurferColumns theme={theme}>
-
-<Step>
-
-```js showNumbers
-  const double = (v) => v * 2;
-  ```
-
-</Step>
-
-<Step>
-
-```js showNumbers
-  const double = (v) => v * 2;
-  // 5 -> 10
-  ```
-
-</Step>
 
 <Step>
 
@@ -764,14 +779,6 @@ numbers.getItems() // [1,2,3]
 </Step>
 
 </CodeSurferColumns>
-
----
-
-# Object in context
-
-* Array(a)
-* Observable(b)
-* Promise(c)
 
 --- 
 
@@ -1036,4 +1043,4 @@ console.log(temp2);
 
 ---
 
-# Pytania ?
+# Pytania ? 😀
