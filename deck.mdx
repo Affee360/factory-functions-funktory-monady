@@ -47,6 +47,7 @@ class PieceOfCake {
 class Muffin {
   bake() {}
   decorate() {}
+  heatUp() {}
 }
 ```
 
@@ -152,12 +153,20 @@ class Salad {
 
 ---
 
+---
+
+# Factory Function
+
+<p style="text-align: center">Factory function to dowolna funkcja, która nie jest klasą ani konstruktorem, która zwraca (prawdopodobnie nowy) obiekt</p>
+
+---
+
 <CodeSurferColumns theme={theme}>
 
 <Step>
 
 ```js title="Composition" showNumbers
-const bakeble = (state) => ({
+const bakable = (state) => ({
   bake: () => console.log(`baking new ${state.type}`),
 });
 
@@ -175,7 +184,7 @@ const cutable = (state) => ({
 <Step>
 
 ```js title="Factory Function" showNumbers
-const bakeble = (state) => ({
+const bakable = (state) => ({
   bake: () => console.log(`baking new ${state.type}`),
 });
 
@@ -190,7 +199,7 @@ const cutable = (state) => ({
 const pieceOfCake = (name, type) => {
   const state = { name, type };
 
-  return Object.assign({}, bakeble(state), decorable(state), cutable(state));
+  return Object.assign({}, bakable(state), decorable(state), cutable(state));
 };
 ```
 
@@ -473,7 +482,7 @@ const numbers = list();
 numbers.addItem(1);
 numbers.addItem(2);
 numbers.getItems(); // [1,2]
-number.items; // undefined
+numbers.items; // undefined
 numbers.addItem = '';
 numbers.addItem(3)
 numbers.getItems() // [1,2,3]
@@ -488,8 +497,7 @@ numbers.getItems() // [1,2,3]
 # Funktory
 
 <p style="text-align: center">
-  kontener dajacy interface umozliwiajacy wykonanie funkcji
-  dla kazdej wartosci wewnatrz niego
+  Struktura danych, na której możesz mapować funkcje w celu pobrania wartości z kontenera, ich modyfikacji, a następnie włożenia z powrotem do kontenera.
 </p>
 
 ---
@@ -518,7 +526,7 @@ numbers.getItems() // [1,2,3]
   ```js title="functor" showNumbers
   const array = [1,2,3,4];
   const addOne = (value) => value + 1;
-  const arrayMap= array.map(addOne);
+  const arrayMap = array.map(addOne);
   ```
 
 </Step>
@@ -659,6 +667,23 @@ numbers.getItems() // [1,2,3]
 
 </Step>
 
+<Step>
+
+```js showNumbers
+  const double = (value) => value * 2;
+  const triple = (value) => value * 3;
+
+  const functor = (v) => ({
+    map: (fn) => functor(fn(v)),
+    valueOf: () => v,
+  })
+
+  const number = functor(2);
+  console.log("functor", number.map(double).map(triple).valueOf());
+  ```
+
+</Step>
+
 </CodeSurferColumns>
 
 ---
@@ -670,10 +695,10 @@ numbers.getItems() // [1,2,3]
 
 ---
 
-# Monady
+# Monada
 
 <p style="text-align: center">
-  monad jest funktorem ktory daje nam dodatkowe opcje, głownie flatMap
+  Sposób komponowania funkcji, które oprócz wartości zwracanej wymagają kontekstu
 </p>
 
 ---
@@ -754,7 +779,7 @@ numbers.getItems() // [1,2,3]
 
 <Step>
 
-```js title="Przykłady monadów" showNumbers 
+```js title="Przykłady monad" showNumbers 
   [1, 2, 3, 4].flatMap((v) => [v * 2])
   ```
 
@@ -762,7 +787,7 @@ numbers.getItems() // [1,2,3]
 
 <Step>
 
-```js title="Przykłady monadów" showNumbers 
+```js title="Przykłady monad" showNumbers 
   [1, 2, 3, 4].flatMap((v) => [v * 2])
 
   const promise = new Promise((res) => setTimeout(() => res("done"), 500));
@@ -772,7 +797,7 @@ numbers.getItems() // [1,2,3]
 
 <Step>
 
-```js title="Przykłady monadów" showNumbers 
+```js title="Przykłady monad" showNumbers 
   [1, 2, 3, 4].flatMap((v) => [v * 2])
 
   const promise = new Promise((res) => setTimeout(() => res("done"), 500));
@@ -820,7 +845,7 @@ console.log("this is promise", Object.prototype.toString.call(promise2));
 
 # Przykład własnego monada
 
-<p style="text-align: center">Funkcja do przeliczania z stopnie fahrenheita na celsjusza</p>
+<p style="text-align: center">Funkcja do przeliczania stopni fahrenheita na celsjusza</p>
 
 ---
 
