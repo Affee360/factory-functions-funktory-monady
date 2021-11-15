@@ -28,6 +28,7 @@ export const theme = nightOwl;
 
 # O mnie
 
+* Ernest Teluk
 * FullStack developer
 * MERN Stack + typescript
 * Lubie grać na perkusji
@@ -506,24 +507,49 @@ numbers.getItems() // [1,2,3]
 
 ---
 
-# Czym jest map ?
+# Orientuj
 
-<p style="text-align: center">W wielu językach programowania map jest nazwą funkcji wyższego rzędu, która stosuje daną funkcję do każdego elementu funktora</p>
-
-* 5 -> 10
-* [10] -> [20]
-* {a: 20} -> {a: 40}
+<p style="text-align: center">Ze względu na zbieżność <mark>przedstawianej koncepcji</mark> z metodami tablicy w <mark>vanila js</mark> przedstawię porównanie funkcji <strong>map</strong> oraz <strong>flatMap</strong></p>
 
 ---
 
+# Map
 
-# Czym jest flatMap ?
+<p style="text-align: center">W vanila js na <mark>typie Array</mark> można wywołać funkcję <strong>.map</strong> , w konsekwencji otrzymując ponownie <mark>typ Array</mark> z nową zawartością.</p>
 
-<p style="text-align: center">Jest tym samym co map, z dodatkową możliwością spłaszczania</p>
+---
 
-* [[5], [5]] -> [10, 10]
-* {a: {b: 5} -> {'a.b': 5}
+<h1 style="text-align: center">Mocna analogia w przypadku funktorów:</h1>
 
+<p style="text-align: center">W omawianej koncepcji w <mark>funktorze X</mark> można wywołać funkcję <strong>.map</strong> , w konsekwencji otrzymując ponownie instancje <mark>funktora X</mark> z nową zawartością.</p>
+
+--- 
+
+# flatMap w vanila js
+
+<p style="text-align: center">W vanila js na <mark>typie Array</mark> można wywołać funkcję <strong>.flatMap</strong> , w konsekwencji otrzymując <mark>tablicę</mark> z której każdy element uległ spłaszczeniu; poddaną spłaszczeniu.</p>
+
+---
+
+<CodeSurfer theme={theme}>
+
+```js  showNumbers
+  Array.prototype.flatMap = function(callback = () => {}) {
+    return this.map(item => callback(item).flat()).flat()
+  }
+```
+
+</CodeSurfer>
+
+<p style="text-align: center">Ważne jest że znów otrzymujemy <mark>typ Array</mark> , który ma te same metody.</p>
+
+---
+
+# flatMap w funktorach
+
+<p style="text-align: center">W omawianej koncepcji w <mark>funktorze X</mark> można wywołać funkcję <strong>.flatMap</strong> , co spowoduje zamknięcie literału, więc w konsekwencji otrzymamy <mark>typ prostszy.</mark></p>
+
+<p style="text-align: center">Na takim wyniku nie możemy już wywoływać metod danego funktora.</p>
 
 ---
 
