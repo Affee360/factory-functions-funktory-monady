@@ -916,7 +916,7 @@ const just = (v) => ({
 ```js showNumbers
 const just = (v) => ({
   map: (fn) => just(fn(v)),
-  flatMap: (fn) => fn(x),
+  flatMap: (fn) => fn(v),
   valueOf: () => v,
   inspect: () => `just(${v})`,
   type: "just",
@@ -938,7 +938,7 @@ const nothing = () => ({
 ```js showNumbers
 const just = (v) => ({
   map: (fn) => just(fn(v)),
-  flatMap: (fn) => fn(x),
+  flatMap: (fn) => fn(v),
   valueOf: () => v,
   inspect: () => `just(${v})`,
   type: "just",
@@ -962,7 +962,7 @@ const maybeOf = (x) => (x == null || x.type === "nothing" ? nothing() : just(x))
 ```js showNumbers
 const just = (v) => ({
   map: (fn) => just(fn(v)),
-  flatMap: (fn) => fn(x),
+  flatMap: (fn) => fn(v),
   valueOf: () => v,
   inspect: () => `just(${v})`,
   type: "just",
@@ -976,7 +976,7 @@ const nothing = () => ({
   type: "nothing",
 });
 
-const maybeOf = (x) => (!x || x.type === "nothing" ? nothing() : just(x));
+const maybeOf = (x) => (x == null || x.type === "nothing" ? nothing() : just(x));
 
 const maybe = {
   of: maybeOf,
@@ -990,7 +990,7 @@ const maybe = {
 ```js showNumbers
 const just = (v) => ({
   map: (fn) => just(fn(v)),
-  flatMap: (fn) => fn(x),
+  flatMap: (fn) => fn(v),
   valueOf: () => v,
   inspect: () => `just(${v})`,
   type: "just",
@@ -1004,7 +1004,7 @@ const nothing = () => ({
   type: "nothing",
 });
 
-const maybeOf = (x) => (!x || x.type === "nothing" ? nothing() : just(x));
+const maybeOf = (x) => (x == null|| x.type === "nothing" ? nothing() : just(x));
 
 const maybe = {
   of: maybeOf,
