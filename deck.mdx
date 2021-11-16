@@ -239,7 +239,7 @@ const pieceOfCake = (name, type) => {
   return Object.assign({}, bakable(state), decorable(state), cutable(state));
 };
 
-const newPiece = pieceOfCake('chocolate cake' 'cake');
+const newPiece = pieceOfCake('chocolate cake', 'cake');
 newPiece.bake();
 newPiece.decorate();
 newPiece.cut();
@@ -451,7 +451,7 @@ const numbers = list();
 numbers.addItem(1);
 numbers.addItem(2);
 numbers.getItems(); // [1,2]
-number.items; // undefined
+numbers.items; // undefined
 ```
 
 </Step>
@@ -472,7 +472,7 @@ const numbers = list();
 numbers.addItem(1);
 numbers.addItem(2);
 numbers.getItems(); // [1,2]
-number.items; // undefined
+numbers.items; // undefined
 numbers.addItem = '';
 numbers.addItem(3) // numbers.addItem is not a function
 ```
@@ -768,53 +768,6 @@ numbers.getItems() // [1,2,3]
   Sposób komponowania funkcji, który oprócz wartości zwracanej wymagają kontekstu
 </p>
 
----
-
-<CodeSurferColumns theme={theme}>
-
-<Step>
-
-```js showNumbers 
-  const functor = (v) => ({
-    map: (fn) => functor(fn(v)),
-    valueOf: () => v,
-    inspect: () => `functor(${v})`,
-  });
-  ```
-
-</Step>
-
-<Step>
-
-```js showNumbers 
-  const functor = (v) => ({
-    map: (fn) => functor(fn(v)),
-    valueOf: () => v,
-    inspect: () => `functor(${v})`,
-  });
-
-  functor(5).map(double);
-  ```
-
-</Step>
-
-<Step>
-
-```js showNumbers 
-  const functor = (v) => ({
-    map: (fn) => functor(fn(v)),
-    valueOf: () => v,
-    inspect: () => `functor(${v})`,
-  });
-
-  functor(5).map(double);
-  // functor(5) -> functor(10)
-  ```
-
-</Step>
-
-</CodeSurferColumns>
-
 --- 
 
 <CodeSurferColumns theme={theme}>
@@ -885,7 +838,7 @@ console.log("this is promise", Object.prototype.toString.call(promise2));
 
 ---
 
-# Przykład własnego monada
+# Przykład własnej monady
 
 <p style="text-align: center">Funkcja do przeliczania stopni fahrenheita na celsjusza</p>
 
@@ -949,7 +902,7 @@ console.log("bad", fahrenheitToCelcius(value2));
 ```js showNumbers
 const just = (v) => ({
   map: (fn) => just(fn(v)),
-  flatMap: (fn) => fn(x),
+  flatMap: (fn) => fn(v),
   valueOf: () => v,
   inspect: () => `just(${v})`,
   type: "just",
@@ -999,7 +952,7 @@ const nothing = () => ({
   type: "nothing",
 });
 
-const maybeOf = (x) => (!x || x.type === "nothing" ? nothing() : just(x));
+const maybeOf = (x) => (x == null || x.type === "nothing" ? nothing() : just(x));
 ```
 
 </Step>
