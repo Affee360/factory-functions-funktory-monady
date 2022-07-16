@@ -17,22 +17,22 @@ export const theme = nightOwl;
   <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/Affee360/factory-functions-funktory-monady/master/images/favicon.ico" />
 </Head>
 
-# Cześć 👋
+# Hello 👋
 
 <p style="text-align: center">
-  Programowanie funkcyjne w JavaScript, czyli czym są
-  Factory Functions, funktory i monady.
+  Functional programming in JavaScript, what are
+  Factory Functions, functors and monads.
 </p>
 
 ---
 
-# O mnie
+# Abour Me
 
 * Ernest Teluk
 * FullStack developer
 * MERN Stack + typescript
-* Lubie grać na perkusji
-* Mam Kota Gibcia ❤️
+* I like playing the drums
+* I have a cat(Gibciu) ❤️
 
 ---
 
@@ -70,7 +70,7 @@ class Muffin {
 
 <Step>
 
-```js title="Przydało by się użyć zasady Don't Repeat Yourself" showNumbers 1:11
+```js title="It would be useful to use the principle of Don't Repeat Yourself" showNumbers 1:11
 class PieceOfCake {
   bake() {}
   decorate() {}
@@ -170,7 +170,7 @@ class Salad {
 
 # Factory Function
 
-<p style="text-align: center">Factory function to dowolna funkcja, która nie jest klasą ani konstruktorem, która zwraca (prawdopodobnie nowy) obiekt</p>
+<p style="text-align: center">A factory function is any function that is not a class or constructor that returns a (possibly new) object</p>
 
 ---
 
@@ -401,10 +401,10 @@ button.addEventListener('click', numbers.getItems.bind(this)) // [1,2]
 
 ---
 
-# Wady
+# Cons
 
-* Brak możliwości enkapsulacji
-* Problematyczne słowo kluczowe this
+* No encapsulation
+* Problematic keyword this
 
 ---
 
@@ -426,7 +426,7 @@ const list = () => {
 const list = () => {
   const items = [];
 
-  return { 
+  return {
     addItem: (item) => items.push(item),
     getItems: () => items,
   }
@@ -441,7 +441,7 @@ const list = () => {
 const list = () => {
   const items = [];
 
-  return { 
+  return {
     addItem: (item) => items.push(item),
     getItems: () => items,
   }
@@ -462,7 +462,7 @@ numbers.items; // undefined
 const list = () => {
   const items = [];
 
-  return { 
+  return {
     addItem: (item) => items.push(item),
     getItems: () => items,
   }
@@ -485,7 +485,7 @@ numbers.addItem(3) // numbers.addItem is not a function
 const list = () => {
   const items = [];
 
-  return Object.freeze({ 
+  return Object.freeze({
     addItem: (item) => items.push(item),
     getItems: () => items,
   })
@@ -507,27 +507,26 @@ numbers.getItems() // [1,2,3]
 
 ---
 
-# Orientuj
-
-<p style="text-align: center">Ze względu na zbieżność <mark>przedstawianej koncepcji</mark> z metodami tablicy w <mark>vanila js</mark> przedstawię porównanie funkcji <strong>map</strong> oraz <strong>flatMap</strong></p>
+# Warning
+<p style="text-align: center">Due to the convergence of the <mark>concept presented</mark> with the array methods in <mark>vanila js</mark>, I will present a comparison of the  <strong>map</strong> and <strong>flatMap</strong> functions</p>
 
 ---
 
 # Map
 
-<p style="text-align: center">W vanila js na <mark>typie Array</mark> można wywołać funkcję <strong>.map</strong> , w konsekwencji otrzymując ponownie <mark>typ Array</mark> z nową zawartością.</p>
+<p style="text-align: center">In vanila js on an <mark>type Array</mark>, the function <strong>.map</strong> can be called, consequently obtaining again an <mark>type Array</mark> with new content.</p>
 
 ---
 
-<h1 style="text-align: center">Mocna analogia w przypadku funktorów:</h1>
+<h1 style="text-align: center">A strong analogy in the case of functors:</h1>
 
-<p style="text-align: center">W omawianej koncepcji w <mark>funktorze X</mark> można wywołać funkcję <strong>.map</strong> , w konsekwencji otrzymując ponownie instancje <mark>funktora X</mark> z nową zawartością.</p>
+<p style="text-align: center">In the concept under discussion, in <mark>function X</mark>, the function <strong>.map</strong> can be called, consequently obtaining again instances of <mark>function X</mark> with new content.</p>
 
---- 
+---
 
-# flatMap w vanila js
+# flatMap in vanila js
 
-<p style="text-align: center">W vanila js na <mark>typie Array</mark> można wywołać funkcję <strong>.flatMap</strong> , w konsekwencji otrzymując <mark>tablicę</mark> z której każdy element uległ spłaszczeniu; poddaną spłaszczeniu.</p>
+<p style="text-align: center">In vanila js on a <mark>type Array</mark> the function <strong>.flatMap</strong> can be called, consequently obtaining a <mark>table</mark> from which each element has been flattened; subject to flattening.</p>
 
 ---
 
@@ -541,15 +540,15 @@ numbers.getItems() // [1,2,3]
 
 </CodeSurfer>
 
-<p style="text-align: center">Ważne jest że znów otrzymujemy <mark>typ Array</mark> , który ma te same metody.</p>
+<p style="text-align: center">The important thing is that we again get the <mark>Array</mark> type, which has the same methods.</p>
 
 ---
 
-# flatMap w funktorach
+# flatMap in functors
 
-<p style="text-align: center">W omawianej koncepcji w <mark>funktorze X</mark> można wywołać funkcję <strong>.flatMap</strong> , co spowoduje zamknięcie literału, więc w konsekwencji otrzymamy <mark>typ prostszy.</mark></p>
+<p style="text-align: center">In the concept discussed here, in <mark>function X</mark>, the function <strong>.flatMap</strong> can be called, which will close the literal, so the result is a <mark>simpler type.</mark>.</p>
 
-<p style="text-align: center">Na takim wyniku nie możemy już wywoływać metod danego funktora.</p>
+<p style="text-align: center">We can no longer call the methods of a given functor on such a result.</p>
 
 ---
 
@@ -559,12 +558,12 @@ numbers.getItems() // [1,2,3]
 * Observable(b)
 * Promise(c)
 
---- 
+---
 
-# Funktory
+# Functors
 
 <p style="text-align: center">
-  Struktura danych, na której możesz mapować funkcje w celu pobrania wartości z kontenera, ich modyfikacji, a następnie włożenia z powrotem do kontenera.
+  A data structure on which you can map functions to take values from a container, modify them and then put them back into the container.
 </p>
 
 ---
@@ -665,7 +664,7 @@ numbers.getItems() // [1,2,3]
 
 ---
 
-# Jak stworzyć functor
+# How create a functor
 
 ---
 
@@ -762,19 +761,19 @@ numbers.getItems() // [1,2,3]
 
 ---
 
-# Monada
+# Monad
 
 <p style="text-align: center">
-  Sposób komponowania funkcji, który oprócz wartości zwracanej wymagają kontekstu
+  A way of composing functions that require context in addition to the return value
 </p>
 
---- 
+---
 
 <CodeSurferColumns theme={theme}>
 
 <Step>
 
-```js title="Przykłady monad" showNumbers 
+```js title="Monad example" showNumbers
   [1, 2, 3, 4].flatMap((v) => [v * 2])
   ```
 
@@ -782,7 +781,7 @@ numbers.getItems() // [1,2,3]
 
 <Step>
 
-```js title="Przykłady monad" showNumbers 
+```js title="Monad example" showNumbers
   [1, 2, 3, 4].flatMap((v) => [v * 2])
 
   const promise = new Promise((res) => setTimeout(() => res("done"), 500));
@@ -792,7 +791,7 @@ numbers.getItems() // [1,2,3]
 
 <Step>
 
-```js title="Przykłady monad" showNumbers 
+```js title="Monad example" showNumbers
   [1, 2, 3, 4].flatMap((v) => [v * 2])
 
   const promise = new Promise((res) => setTimeout(() => res("done"), 500));
@@ -805,7 +804,7 @@ numbers.getItems() // [1,2,3]
 
 ---
 
-<h1 style="text-align: center">Jak w rzeczywistości działa promise</h1>
+<h1 style="text-align: center">How the promise actually works</h1>
 
 <CodeSurfer>
 
@@ -816,7 +815,7 @@ promise.then((data) => console.log(data))
 
 </CodeSurfer>
 
-<p style="text-align: center">Promise(Promise('done')) w calbacku tych funkcji mamy dostęp do wartości</p>
+<p style="text-align: center">Promise(Promise('done')) in the calback of these functions we have access to the value of the</p>
 
 ---
 
@@ -838,9 +837,9 @@ console.log("this is promise", Object.prototype.toString.call(promise2));
 
 ---
 
-# Przykład własnej monady
+# Own monady example
 
-<p style="text-align: center">Funkcja do przeliczania stopni fahrenheita na celsjusza</p>
+<p style="text-align: center">Function to convert degrees Fahrenheit to Celsius</p>
 
 ---
 
@@ -883,15 +882,15 @@ console.log("bad", fahrenheitToCelcius(value2));
 
 ---
 
-# Powstaje pewnien problem
+# A problem arises
 
 <Image
   src="https://raw.githubusercontent.com/Affee360/factory-functions-funktory-monady/master/images/5.png"
   style="background-image: contain; background-size: 800px auto;"
 />
 
-<p style="text-align: center">Wszystko dlatego że null jest zamieniany na 0</p>
-<p style="text-align: center">Potrzebujemy czegoś co zatrzyma kompozycje jeśli wartość jest nullem</p>
+<p style="text-align: center">All because null is converted to 0</p>
+<p style="text-align: center">We need something to stop the composition if the value is null</p>
 
 ---
 
@@ -1022,7 +1021,7 @@ console.log(temp2);
 
 ---
 
-# Teraz oba wyniki są poprawne
+# Now both results are correct
 
 <Image
   src="https://raw.githubusercontent.com/Affee360/factory-functions-funktory-monady/master/images/6.png"
@@ -1031,4 +1030,4 @@ console.log(temp2);
 
 ---
 
-# Pytania ? 😀
+# Questions? 😀
